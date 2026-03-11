@@ -12,12 +12,3 @@ $$w = w - \alpha \cdot \left[ \frac{1}{n} \sum (\sigma(w \cdot x_i + b) - y_i) \
 ## 🛠 Intégration Scikit-Learn
 Comme pour le SVM, ce modèle est encapsulé pour respecter l'API `scikit-learn` :
 
-```python
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from src.logistic_regression import CustomLogisticRegression
-
-model = Pipeline([
-    ('scaler', StandardScaler()),
-    ('logreg', CustomLogisticRegression(learning_rate=0.1, n_iterations=1000))
-])
