@@ -3,8 +3,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt 
-from logistic_regression import LogisticRegression
 import numpy as np
+from sklearn.linear_model import LogisticRegression 
 
 # loading data from a file 
 diabetes_data=pd.read_csv("data/diabetes.csv")
@@ -37,11 +37,11 @@ features=standard_scaler.transform(X=features)
 # print("\n\nFeatures after standardization \n",features)
 
 ############## splitting dataset to training and test data
-X_train,X_test,Y_train,Y_test=train_test_split(features,target,test_size=0.2,random_state=2)
+X_train,X_test,Y_train,Y_test=train_test_split(features,target,test_size=0.25,random_state=2)
 
 
 ############## creating instance of our model
-classifier=LogisticRegression(learning_rate=0.01,no_of_iteration=1000)
+classifier=LogisticRegression(max_iter=1000,C=1.0)
 
 ############## training step
 classifier.fit(X_train,Y_train)
@@ -62,7 +62,7 @@ print("the accuracy score of the logistic regression model is : ",score*100)
 # input_data=(5,166,72,19,175,25.8,0.587,51)
 input_data=(2,197,70,45,543,30.5,0.158,53)
 
-# changing the format to numpy array
+# changing the forma to numpy array
 input_data_nmp_array=np.asanyarray(input_data)
 
 # transforming input to one row 
@@ -75,24 +75,10 @@ std_input=standard_scaler.transform(input_data_reshaped)
 prediction=classifier.predict(input_data_reshaped)
 
 if prediction[0]==0:
-    print("based on the passion's information ,he is not diabetic")
+    print("the passion is not diabetic")
 else:
-    print("based on the passion's information ,he is diabetic")
+    print("the passion is diabetic")
 
 
 
 
-# displaying data 
-
-X_axis = np.linspace(features[:, 1].min(), features[:, 1].max(), 300).reshape(-1, 1)
-z = X_axis * classifier.w[1] + classifier.b
-probs = 1 / (1 + np.exp(-z))
-
-plt.figure(figsize=(10, 6))
-plt.scatter(features[:, 1], target, color='red', alpha=0.3, label='Actual Data')
-plt.plot(X_axis, probs, color='blue', linewidth=3, label='Logistic Curve')
-plt.title("Probability of Diabetes vs Glucose")
-plt.xlabel("Standardized Glucose")
-plt.ylabel("Probability")
-plt.legend()
-plt.show()
