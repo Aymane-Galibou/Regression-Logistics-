@@ -10,5 +10,4 @@ La mise à jour des poids lors de la descente de gradient est définie par :
 $$w = w - \alpha \cdot \left[ \frac{1}{n} \sum (\sigma(w \cdot x_i + b) - y_i) \cdot x_i \right]$$
 
 ## 🛠 Intégration Scikit-Learn
-Comme pour le SVM, ce modèle est encapsulé pour respecter l'API `scikit-learn` :
 
